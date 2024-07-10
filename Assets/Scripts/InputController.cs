@@ -5,6 +5,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class InputController 
 {
     public event Action<Vector2, bool> OnDirectionChange;
+    public event Action OnShot;
 
     private SimpleTouchController _simpleTouchController;
     private bool _isTouched;
@@ -30,5 +31,14 @@ public class InputController
     public void Update() 
     {
         OnDirectionChange?.Invoke(_direction, _isTouched);
+        CheckButtons();
+    }
+
+    private void CheckButtons()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnShot?.Invoke();
+        }
     }
 }

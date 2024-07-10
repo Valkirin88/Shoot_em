@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PlayerController 
 {
@@ -12,12 +9,14 @@ public class PlayerController
         _inputController = inputController;
         _playerView = playerView;
         _inputController.OnDirectionChange += _playerView.SetDirection;
+        _inputController.OnShot += _playerView.Shot;
     }
 
 
     public void Destroy()
     {
         _inputController.OnDirectionChange -= _playerView.SetDirection;
+        _inputController.OnShot -= _playerView.Shot;
     }
 
 }

@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-
-    private float _movingSpeed = 4f;
     [SerializeField]
     private Animator _animator;
+
+    [SerializeField]
+    private ParticleSystem _shotParticles;
+
+    private float _movingSpeed = 4f;
+
 
     private Vector3 _direction;
     private bool _isIdle = true;
@@ -45,5 +49,12 @@ public class PlayerView : MonoBehaviour
             _animator.SetBool("IsIdle", _isIdle);
             transform.position = transform.position + new Vector3(_direction.x, 0, _direction.y) * _movingSpeed * Time.deltaTime;
         }
+    }
+
+    public void Shot()
+    {
+        Debug.Log("shot");
+        _animator.SetBool("IsShoot", true);
+        _shotParticles.Play();
     }
 }
