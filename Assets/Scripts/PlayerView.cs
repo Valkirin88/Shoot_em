@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -46,6 +45,5 @@ public class PlayerView : MonoBehaviour
             _animator.SetBool("IsIdle", _isIdle);
             transform.position = transform.position + new Vector3(_direction.x, 0, _direction.y) * _movingSpeed * Time.deltaTime;
         }
-        
     }
 }
