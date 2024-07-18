@@ -19,9 +19,8 @@ public class PlayerView : MonoBehaviour
     private bool _isIdle = true;
 
 
-    public void SetDirection(Vector2 direction, bool isTouched)
+    public void SetDirectionAndMoving(Vector2 direction, bool isTouched)
     {
-
         if (isTouched)
         {
             _isIdle = false;
@@ -56,6 +55,10 @@ public class PlayerView : MonoBehaviour
     public void Shot()
     {
         _animator.SetBool("IsShoot", true);
+    }
+
+    public void ShowShotParticles()
+    {
         _shotParticles.Play();
     }
 }

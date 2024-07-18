@@ -8,14 +8,14 @@ public class PlayerController
     {
         _inputController = inputController;
         _playerView = playerView;
-        _inputController.OnDirectionChange += _playerView.SetDirection;
+        _inputController.OnDirectionChange += _playerView.SetDirectionAndMoving;
         _inputController.OnShot += _playerView.Shot;
     }
 
 
     public void Destroy()
     {
-        _inputController.OnDirectionChange -= _playerView.SetDirection;
+        _inputController.OnDirectionChange -= _playerView.SetDirectionAndMoving;
         _inputController.OnShot -= _playerView.Shot;
     }
 
