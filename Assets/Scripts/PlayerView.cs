@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -8,52 +9,52 @@ public class PlayerView : MonoBehaviour
     [SerializeField]
     private ParticleSystem _shotParticles;
 
+    [SerializeField]
+    private GameObject _cube;
+
     private float _movingSpeed = 4f;
-
-
     private Vector3 _direction;
+
+
     private bool _isIdle = true;
-    private bool _isMoving = false;
+
 
     public void SetDirection(Vector2 direction, bool isTouched)
     {
 
         if (isTouched)
         {
-            _isMoving = true;
-            _direction.Normalize();
-            _animator.SetFloat("Horizontal", direction.x);
-            _animator.SetFloat("Vertical", direction.y);
-            _direction = direction;
+            _isIdle = false;
+            _direction = new Vector3(direction.x, 0, direction.y);
         }
         else
-            _isMoving = false;
+            _isIdle = true;
+
+        _animator.SetBool("IsIdle", _isIdle);
     }
 
     private void Update()
     {
+        KeepRotation();
         Move();
     }
 
     private void Move()
     {
-        if (_direction.x < 0.1f && _direction.y< 0.1f && _direction.x > -0.1f && _direction.y > -0.1f || !_isMoving)
+        if(!_isIdle) 
         {
-            _isIdle = true;
-            _animator.SetBool("IsIdle", _isIdle);
-            
+            transform.position = transform.position + _direction.normalized * _movingSpeed * Time.deltaTime;
         }
-        else
-        {
-            _isIdle = false;
-            _animator.SetBool("IsIdle", _isIdle);
-            transform.position = transform.position + new Vector3(_direction.x, 0, _direction.y) * _movingSpeed * Time.deltaTime;
-        }
+    }
+
+    private void KeepRotation()
+    {
+            var lookDirection = transform.position + _direction;
+            transform.LookAt(lookDirection);
     }
 
     public void Shot()
     {
-        Debug.Log("shot");
         _animator.SetBool("IsShoot", true);
         _shotParticles.Play();
     }
