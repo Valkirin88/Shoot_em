@@ -54,7 +54,19 @@ public class PlayerView : MonoBehaviour
 
     public void Shot()
     {
-        _animator.SetBool("IsShoot", true);
+        Debug.Log("Shot");
+        if (!_isIdle)
+        {
+            _animator.SetLayerWeight(1, 1);
+            Debug.Log("Second layer");
+        }
+        else
+            _animator.SetBool("IsShoot", true);
+    }
+
+    public void StopShotAnimation()
+    {
+        _animator.SetLayerWeight(1, 0);
     }
 
     public void ShowShotParticles()
